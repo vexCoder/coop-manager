@@ -1,0 +1,14 @@
+{
+    "extends": "coop/node",
+    "parserOptions": {
+        "project": "./tsconfig.json",
+        "tsconfigRootDir": "libs/common"
+    },
+    "ignorePatterns": [
+        "**/*.d.*"
+    ],
+    "rules": {
+        "no-console": "off",
+        "no-plusplus": "off"
+    }
+}

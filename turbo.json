@@ -1,0 +1,14 @@
+{
+  "pipeline": {
+    "build": {},
+    "dev": {},
+    "lint": {},
+    "prod": {},
+
+    "@coop/database#generate": {},
+    "@coop/database#watch": {
+      "cache": false,
+      "dependsOn": ["@coop/database#generate"]
+    }
+  }
+}

@@ -1,0 +1,164 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../dist/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Religion {
+  CATHOLIC
+  CHRISTIAN
+  MUSLIM
+  BUDDHIST
+  HINDU
+  JEWISH
+  SIKH
+  OTHER
+}
+
+enum HighestEducation {
+  ELEMENTARY
+  SECONDARY
+  COLLEGE
+  GRADUATE
+  POST_GRADUATE
+  OTHER
+}
+
+enum CivilStatus {
+  SINGLE
+  MARRIED
+  WIDOWED
+  SEPARATED
+  DIVORCED
+  OTHER
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+model Member {
+  id                Int              @id @default(autoincrement())
+  acct_num          String           @unique
+  first_name        String
+  last_name         String
+  religion          Religion         @default(CATHOLIC)
+  highest_education HighestEducation?
+  contact_num       String?
+  address           String?
+  civil_status      CivilStatus?
+  age               Float         @default(0)
+  gender            Gender?        
+  tin               String?
+  occupation        String?
+  email             String?
+  dependents        Dependents[]
+  loans              Loan[]
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  @@index(fields: [first_name, last_name, acct_num])
+}
+
+model Dependents {
+  id           Int      @id @default(autoincrement())
+  member         Member     @relation(fields: [member_id], references: [id])
+  member_id      Int
+  first_name   String
+  last_name    String
+  age          Int
+  relationship String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+enum StaffRole {
+  ADMIN
+  STAFF
+  ACCOUNTANT
+}
+
+model Staff {
+  id           Int            @id @default(autoincrement())
+  username     String         @unique
+  password     String
+  first_name   String
+  last_name    String
+  contact_num  String?
+  refresh_token String?
+  role         StaffRole     @default(STAFF)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Transactions Transactions[]
+
+  @@index(fields: [first_name, last_name, username])
+}
+
+enum AccountType {
+  SAVINGS
+  SHARE_CAPITAL
+  MORTUARY
+}
+
+model Accounts {
+  id        Int         @id @default(autoincrement())
+  acct_num  String      @unique
+  type      AccountType
+  balance   Float
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+enum TransactionType {
+  DEPOSIT
+  WITHDRAWAL
+  LOAN
+  PAYMENT
+}
+
+model Transactions {
+  id          Int             @id @default(autoincrement())
+  acct_num    String
+  type        TransactionType
+  amount      Float
+  amount_word String?
+  interest    Float?
+  penalty     Float?
+  other       Float?
+  receiver    Staff           @relation(fields: [receiver_id], references: [id])
+  receiver_id Int
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@index(fields: [acct_num])
+}
+
+enum LoanPaymentMode {
+  MONTHLY
+  QUARTERLY
+  SEMI_ANNUALLY
+  ANNUALLY
+}
+
+model Loan {
+  id  Int @id @default(autoincrement())
+  member Member @relation(fields: [member_id], references: [id])
+  member_id Int
+  principal Float
+  term Int
+  interest Float
+  penalty Float
+  mode LoanPaymentMode
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index(fields: [member_id])
+}

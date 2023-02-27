@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    depends_on:
+      - postgres
+    ports:
+      - "5555:80"
+    restart: unless-stopped
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@email.com
+      - PGADMIN_DEFAULT_PASSWORD=adminadmin
+      
+  postgres:
+    image: bitnami/postgresql:latest
+    container_name: database
+    restart: always
+    environment:
+      - POSTGRESQL_DATABASE=coop-db
+      - POSTGRESQL_USERNAME=admin
+      - POSTGRESQL_PASSWORD=adminpass
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+volumes:
+  data:

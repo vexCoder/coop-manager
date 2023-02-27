@@ -1,0 +1,40 @@
+{
+  "name": "coop-manager",
+  "version": "0.0.0",
+  "private": true,
+  "description": "<%= description %>",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "db": "yarn workspace @coop/database",
+    "sb": "concurrently --names \"Tailwind,Storybook\" -c \"blue.bold,magenta.bold\" --kill-others \"yarn tw:dev\" \"yarn sb:dev\"",
+    "tw:dev": "yarn workspace @coop/view tailwind:dev",
+    "sb:dev": "start-storybook -p 6006 -c ./apps/view/.storybook",
+    "build-storybook": "build-storybook"
+  },
+  "keywords": [],
+  "author": "<%= author %> <<%= email %>>",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "eslint": "^8.21.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.4",
+    "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.5.4"
+  },
+  "workspaces": [
+    "apps/*",
+    "libs/*",
+    "configs/*"
+  ],
+  "tk": {
+    "templates": [
+      "../templates"
+    ]
+  },
+  "dependencies": {}
+}

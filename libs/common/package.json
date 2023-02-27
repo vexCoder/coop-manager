@@ -1,0 +1,34 @@
+{
+  "name": "@coop/common",
+  "version": "0.0.0",
+  "description": "",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "node": "./dist/index.js",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsup src/index.ts --dts --sourcemap --format esm,cjs --outDir dist --clean --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "zod": "^3.20.6"
+  },
+  "devDependencies": {
+    "@coop/tsconfig": "*",
+    "@types/node": "^17.0.6",
+    "eslint-config-coop": "*",
+    "tsup": "^6.6.3"
+  },
+  "gitHead": "63dbb270f1ae625566479126f444166084c1c93c"
+}

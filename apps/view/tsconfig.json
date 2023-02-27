@@ -1,0 +1,17 @@
+{
+  "extends": "@coop/tsconfig/tsconfig.react.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@features/*": ["./src/features/*"],
+      "@slices/*": ["./src/slices/*"],
+      "@providers/*": ["./src/providers/*"],
+      "@root/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*.tsx", "src/**/*.ts"],
+  "exclude": []
+}
