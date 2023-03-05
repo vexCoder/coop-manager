@@ -54,7 +54,7 @@ export const LoginForm = ({ username, onSuccess, onError }: LoginFormProps) => {
   return (
     <form
       onSubmit={onSubmit}
-      className="prose-sm prose flex w-full min-w-max max-w-xs flex-col gap-1 lg:prose-base prose-headings:leading-normal prose-p:leading-none"
+      className="prose-sm prose flex w-full min-w-max max-w-xs flex-col gap-1 lg:prose-base prose-headings:leading-normal prose-p:my-0 prose-p:leading-none"
     >
       <article>
         <h1 className="inline">👋</h1>
@@ -63,7 +63,7 @@ export const LoginForm = ({ username, onSuccess, onError }: LoginFormProps) => {
         </h2>
       </article>
       {username && (
-        <p className="my-0 font-normal text-neutral-focus">{fullname}</p>
+        <p className="font-normal text-neutral-focus ">{fullname}</p>
       )}
 
       <TextField

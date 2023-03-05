@@ -18,7 +18,7 @@
   ],
   "rules": {
     "no-empty-pattern": "off",
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "import/no-extraneous-dependencies": "off",
     "react/require-default-props": "off",
     "react/jsx-props-no-spreading": "off",
     "react/jsx-first-prop-new-line": ["error", "multiline"],

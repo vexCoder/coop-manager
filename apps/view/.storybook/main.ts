@@ -9,6 +9,7 @@ const config: StorybookViteConfig = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
+    "storybook-dark-mode"
   ],
   core: {
     builder: "@storybook/builder-vite",

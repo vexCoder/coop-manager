@@ -1,26 +1,26 @@
 import clsx from "clsx";
-import { UseFormRegisterReturn } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { Field } from "./Field";
 
-type TextFieldProps<T extends string> = {
-  label?: string;
-  labelFor?: string;
-  placeholder?: string;
-  className?: string;
-  registration: UseFormRegisterReturn<T>;
-  error?: string;
-  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
-};
+export type TextFieldProps = FormTypes.InputProps<{
+  value?: string;
+  onChange?: (value: string) => void;
+}>;
 
-export const TextField = <T extends string>({
+export const TextField = ({
   label,
-  placeholder,
   labelFor,
   className,
-  registration,
   error,
-  inputProps,
-}: TextFieldProps<T>) => {
+  name,
+  id,
+  size = "sm",
+  value,
+  onChange,
+  ...inputProps
+}: TextFieldProps) => {
+  const { register } = useFormContext() || {};
+
   return (
     <Field
       error={error}
@@ -29,10 +29,19 @@ export const TextField = <T extends string>({
       label={label}
     >
       <input
-        className={clsx("rounded-md", "input-bordered input", labelFor)}
-        placeholder={placeholder}
+        id={labelFor || id}
+        {...(value && { value })}
+        {...(onChange && { onChange })}
+        className={clsx(
+          "input",
+          error && "input-error",
+          size === "xs" && "input-xs",
+          size === "sm" && "input-sm",
+          size === "md" && "input-md",
+          size === "lg" && "input-lg"
+        )}
         {...inputProps}
-        {...registration}
+        {...(register && register(name || TextField.name))}
       />
     </Field>
   );
